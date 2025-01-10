@@ -1,12 +1,15 @@
 # Firmware Titan pour T-Display-S3
+
 ![IMG_20250106_223322](https://github.com/user-attachments/assets/f9da2d12-33a8-4344-a816-5c0d78def7cf)
+
 ## Description
-Le **firmware Titan** est un projet conçu pour le **T-Display-S3** basé sur le microcontrôleur **ESP32-S3** de **Lilygo**. 
+Le **firmware Titan** est un projet conçu pour le **T-Display-S3** basé sur le microcontrôleur **ESP32-S3** de **Lilygo**.
 
 ## Fonctionnalités
-- **Menu Principal :** Navigation facile pour sélectionner diverses options comme "Wifi Attack", "BLE Attack", "Infos" et "Paramètres".
+- **Menu Principal :** Navigation facile pour sélectionner diverses options comme "Wifi Attack", "BLE Attack", "Infos", "Paramètres", et "Batterie Info".
 - **Paramètres :** Modification de la couleur de l'interface et de la luminosité de l'écran.
 - **Affichage d'Informations :** Affiche des détails système, tels que le modèle de la puce, la taille de l'écran, la capacité de la mémoire Flash, etc.
+- **Batterie :** Affiche la tension de la batterie via l'ADC de l'ESP32, permettant une surveillance en temps réel.
 - **Interaction avec les boutons :** Utilisation des boutons A et B pour naviguer et ajuster les paramètres.
 
 ## Matériel requis
@@ -43,6 +46,7 @@ Le menu principal propose les options suivantes :
 2. **BLE Attack**
 3. **Infos** - Affiche les informations système détaillées.
 4. **Paramètres** - Permet de modifier la couleur de l'interface et la luminosité de l'écran.
+5. **Batterie Info** - Affiche les informations relatives à la batterie (si disponible).
 
 ### Navigation
 - **Bouton A (GPIO0)** : Accède à la catégorie sélectionnée ou affiche les informations de cette catégorie.
@@ -52,6 +56,9 @@ Le menu principal propose les options suivantes :
 Dans le menu "Paramètres", vous pouvez :
 - Modifier la couleur principale de l'interface parmi cinq couleurs prédéfinies.
 - Ajuster la luminosité de l'écran par incréments de 20 (de 0 à 255).
+
+### Batterie
+Le firmware utilise le pin **GPIO4** pour lire la tension de la batterie et affiche la valeur en millivolts sur l'écran. Si aucune batterie n'est détectée, un message "No battery connected!" est affiché.
 
 ## Code
 
@@ -64,7 +71,7 @@ Le code est structuré de manière simple et optimisée, avec des fonctions prin
   - `enterCategory()`
   - `nextCategory()`
   - `displaySettings()`
-  - `displayParameters()`
+  - `displayBatteryInfo()`
   - `waitForButtonPress()`
 
 ## Aide

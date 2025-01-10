@@ -2,17 +2,19 @@
 #include <WiFi.h>         // Wi-Fi library for network management
 #include <FS.h>           // Library for SPIFFS filesystem access
 #include <SD.h>           // Library for SD card access
+#include <esp_adc_cal.h>  // ADC calibration library
 
 // GPIO and other constant definitions
 #define BACKLIGHT_PIN 15
 #define BUTTON_A 0
 #define BUTTON_B 14
+#define PIN_BAT_VOLT 4
 
 // New firmware version
-const char* firmware_version = "1.0.7";
+const char* firmware_version = "1.0.8";
 
 // Main menu
-const char* menu_items[] = {"Wifi Attack", "BLE Attack", "Info", "Settings"};
+const char* menu_items[] = {"Wifi Attack", "BLE Attack", "Info", "Settings", "Battery Info"};
 const int menu_size = sizeof(menu_items) / sizeof(menu_items[0]);
 int current_menu_index = 0;
 
@@ -129,6 +131,8 @@ void enterCategory() {
     displayInfo();
   } else if (strcmp(menu_items[current_menu_index], "Settings") == 0) {
     displaySettings();
+  } else if (strcmp(menu_items[current_menu_index], "Battery Info") == 0) {
+    displayBatteryInfo();
   } else {
     tft.fillScreen(COLOR_BLACK);
     tft.setTextColor(COLOR_WHITE, COLOR_BLACK);
@@ -165,6 +169,32 @@ void displayInfo() {
   };
   for (int i = 0; i < 5; i++) {
     tft.drawString(infos[i], 10, 50 + i * 20);
+  }
+
+  waitForButtonPress(BUTTON_A);
+  displayMenu();
+}
+
+// Display battery info
+void displayBatteryInfo() {
+  esp_adc_cal_characteristics_t adc_chars;
+  esp_adc_cal_value_t val_type = esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, 1100, &adc_chars);
+
+  tft.fillScreen(COLOR_BLACK);
+  tft.setTextColor(main_color, COLOR_BLACK);
+  tft.setTextSize(2);
+  tft.setTextDatum(MC_DATUM);
+  tft.drawString("Battery Info", tft.width() / 2, 20);
+
+  uint32_t raw = analogRead(PIN_BAT_VOLT);
+  uint32_t voltage = esp_adc_cal_raw_to_voltage(raw, &adc_chars) * 2;
+
+  tft.setTextSize(1);
+  tft.setTextDatum(TL_DATUM);
+  if (voltage > 4300) {
+    tft.drawString("No battery connected!", 10, 50);
+  } else {
+    tft.drawString("Voltage: " + String(voltage) + " mV", 10, 50);
   }
 
   waitForButtonPress(BUTTON_A);
