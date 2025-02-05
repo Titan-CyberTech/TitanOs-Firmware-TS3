@@ -3,7 +3,7 @@
 ![IMG_20250106_223322](https://github.com/user-attachments/assets/f9da2d12-33a8-4344-a816-5c0d78def7cf)
 
 ## Description
-Le **firmware Titan** est un projet conçu pour le **T-Display-S3** basé sur le microcontrôleur **ESP32-S3** de **Lilygo**.
+Le **firmware Titan** est un projet conçu pour le **T-Display-S3** basé sur le microcontrôleur **ESP32-S3** de **Lilygo**. Il offre une interface graphique fluide et un accès simple aux paramètres et informations système.
 
 ## Fonctionnalités
 - **Menu Principal :** Navigation facile pour sélectionner diverses options comme "Wifi Attack", "BLE Attack", "Infos", "Paramètres", et "Batterie Info".
@@ -11,6 +11,7 @@ Le **firmware Titan** est un projet conçu pour le **T-Display-S3** basé sur le
 - **Affichage d'Informations :** Affiche des détails système, tels que le modèle de la puce, la taille de l'écran, la capacité de la mémoire Flash, etc.
 - **Batterie :** Affiche la tension de la batterie via l'ADC de l'ESP32, permettant une surveillance en temps réel.
 - **Interaction avec les boutons :** Utilisation des boutons A et B pour naviguer et ajuster les paramètres.
+- **Écran de démarrage personnalisé** avec une image de bienvenue.
 
 ## Matériel requis
 - **Carte :** T-Display-S3 (basée sur l'ESP32-S3)
@@ -38,7 +39,7 @@ Le **firmware Titan** est un projet conçu pour le **T-Display-S3** basé sur le
 ## Fonctionnement du Firmware
 
 ### Écran de démarrage
-Au démarrage, le firmware affiche un écran de bienvenue avec le logo "Titan Firmware" et une barre de progression animée (à améliorer dans les prochaines versions).
+Au démarrage, le firmware affiche un écran de bienvenue avec le logo "Titan Firmware" pendant 5 secondes avant de passer au menu principal.
 
 ### Menu Principal
 Le menu principal propose les options suivantes :
