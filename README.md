@@ -3,71 +3,72 @@
 ![IMG_20250106_223322](https://github.com/user-attachments/assets/f9da2d12-33a8-4344-a816-5c0d78def7cf)
 
 ## Description
-Le **firmware Titan** est un projet conçu pour le **T-Display-S3** basé sur le microcontrôleur **ESP32-S3** de **Lilygo**. Il offre une interface graphique fluide et un accès simple aux paramètres et informations système.
+Le **firmware Titan** est un projet conçu pour le **T-Display-S3**, basé sur le microcontrôleur **ESP32-S3** de **Lilygo**. Il offre une interface graphique fluide et un accès simplifié aux paramètres et informations système.
 
 ## Fonctionnalités
-- **Menu Principal :** Navigation facile pour sélectionner diverses options comme "Wifi Attack", "BLE Attack", "Infos", "Paramètres", et "Batterie Info".
-- **Paramètres :** Modification de la couleur de l'interface et de la luminosité de l'écran.
-- **Affichage d'Informations :** Affiche des détails système, tels que le modèle de la puce, la taille de l'écran, la capacité de la mémoire Flash, etc.
-- **Batterie :** Affiche la tension de la batterie via l'ADC de l'ESP32, permettant une surveillance en temps réel.
-- **Interaction avec les boutons :** Utilisation des boutons A et B pour naviguer et ajuster les paramètres.
-- **Écran de démarrage personnalisé** avec une image de bienvenue.
+- **Menu Principal :** Navigation intuitive avec accès aux options "WiFi Attack", "BLE Attack", "Infos", "Paramètres" et "Batterie Info".
+- **Paramètres :** Personnalisation de l'interface (couleurs et luminosité de l'écran).
+- **Affichage d'Informations :** Détails sur le matériel, tels que le modèle de la puce, la taille de l'écran et la mémoire Flash.
+- **Gestion de la Batterie :** Affichage de la tension via l'ADC de l'ESP32 pour une surveillance en temps réel.
+- **Contrôle via boutons :** Utilisation des boutons A et B pour naviguer et modifier les paramètres.
+- **Écran de démarrage personnalisé** avec un logo de bienvenue.
 
 ## Matériel requis
-- **Carte :** T-Display-S3 (basée sur l'ESP32-S3)
-- **Ordinateur :** Windows ou Linux avec l'IDE Arduino ou PlatformIO.
+- **Carte :** T-Display-S3 (ESP32-S3)
+- **Ordinateur :** Windows, Linux ou macOS avec **Arduino IDE** ou **PlatformIO**.
 
 ## Installation
 
 ### Prérequis logiciels
 - **Arduino IDE** ou **PlatformIO**
-- **Bibliothèque TFT_eSPI** pour la gestion de l'écran TFT
+- **Bibliothèque TFT_eSPI** pour l'affichage TFT
 
 ### Installation avec Arduino IDE
-1. Installez la **bibliothèque TFT_eSPI** via le dépôt officiel du firmware, dans le dossier `lib/TFT_eSPI`.
-2. Ajoutez l'URL suivante dans les **préférences de l'IDE Arduino** pour obtenir le support de la carte ESP32 :  
+1. Installez **TFT_eSPI** via le dossier `lib/TFT_eSPI` du projet.
+2. Ajoutez cette URL dans **Préférences** de l'IDE Arduino :  
    `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
-3. Sélectionnez la carte **ESP32S3 Dev Module** dans le menu **Outils** > **Carte**.
+3. Sélectionnez **ESP32S3 Dev Module** dans **Outils** > **Carte**.
 4. Configurez les paramètres suivants :
    - **Flash Size :** 16MB (128Mb)
    - **Partition Scheme :** 16M Flash (3M APP/9.9MB FATFS)
    - **PSRAM :** OPI PSRAM
    - **Upload Speed :** 921600
    - **Upload Mode :** UART0/Hardware CDC
-5. Connectez la carte via USB et téléchargez le firmware en cliquant sur le bouton **Upload**.
+5. Connectez la carte via USB et cliquez sur **Upload**.
 
 ## Fonctionnement du Firmware
 
 ### Écran de démarrage
-Au démarrage, le firmware affiche un écran de bienvenue avec le logo "Titan Firmware" pendant 5 secondes avant de passer au menu principal.
+Au démarrage, le firmware affiche un logo "Titan Firmware" pendant 5 secondes avant d'accéder au menu principal.
 
 ### Menu Principal
-Le menu principal propose les options suivantes :
-1. **Wifi Attack**
+Le menu propose :
+1. **WiFi Attack**
 2. **BLE Attack**
-3. **Infos** - Affiche les informations système détaillées.
-4. **Paramètres** - Permet de modifier la couleur de l'interface et la luminosité de l'écran.
-5. **Batterie Info** - Affiche les informations relatives à la batterie (si disponible).
+3. **Infos** - Affichage des informations système
+4. **Paramètres** - Personnalisation de l'affichage
+5. **Batterie Info** - Surveillance de l'état de la batterie
 
 ### Navigation
-- **Bouton A (GPIO0)** : Accède à la catégorie sélectionnée ou affiche les informations de cette catégorie.
-- **Bouton B (GPIO14)** : Permet de naviguer entre les catégories du menu.
+- **Bouton A (GPIO0)** : Sélectionner une option.
+- **Bouton B (GPIO14)** : Naviguer dans le menu.
 
 ### Paramètres
-Dans le menu "Paramètres", vous pouvez :
-- Modifier la couleur principale de l'interface parmi cinq couleurs prédéfinies.
-- Ajuster la luminosité de l'écran par incréments de 20 (de 0 à 255).
+Dans le menu "Paramètres" :
+- Changer la couleur principale (5 options disponibles).
+- Régler la luminosité (0 à 255 par paliers de 20).
 
-### Batterie
-Le firmware utilise le pin **GPIO4** pour lire la tension de la batterie et affiche la valeur en millivolts sur l'écran. Si aucune batterie n'est détectée, un message "No battery connected!" est affiché.
+### Gestion de la Batterie
+- Lecture de la tension via **GPIO4**.
+- Affichage de la valeur en millivolts.
+- Message "No battery connected!" si aucune batterie n'est détectée.
 
 ## Code
-
-Le code est structuré de manière simple et optimisée, avec des fonctions principales pour la gestion du menu et de l'affichage :
+Le code est structuré avec des fonctions principales pour la gestion de l'affichage et des menus :
 
 - **setup()** : Initialisation des périphériques et de l'écran.
-- **loop()** : Gestion des appuis sur les boutons et mise à jour de l'affichage.
-- **Fonctions de gestion des menus :**
+- **loop()** : Gestion des interactions utilisateur et mise à jour de l'affichage.
+- **Fonctions du menu :**
   - `displayMenu()`
   - `enterCategory()`
   - `nextCategory()`
@@ -75,16 +76,13 @@ Le code est structuré de manière simple et optimisée, avec des fonctions prin
   - `displayBatteryInfo()`
   - `waitForButtonPress()`
 
-## Aide
+## Dépannage
 
-### Problèmes courants
+### L'écran ne s'allume pas
+- Vérifiez que **GPIO15** est bien configuré en sortie et mis à **HIGH** pour activer le rétroéclairage.
 
-#### L'écran ne s'allume pas après le téléchargement du firmware
-- Vérifiez que le **GPIO15** est bien configuré en sortie et à un niveau **HIGH** pour activer le rétroéclairage de l'écran.
+### La luminosité ne change pas
+- Assurez-vous que la fonction `analogWrite()` est bien utilisée sur le pin du rétroéclairage.
 
-#### La luminosité ne se modifie pas correctement
-- Assurez-vous que la fonction `analogWrite()` est utilisée pour ajuster la luminosité via le pin de rétroéclairage.
-
-### Dépannage USB
-
-- Si le téléchargement du firmware échoue, appuyez simultanément sur les boutons **BOOT** et **RST** pour entrer en mode de téléchargement, puis réessayez.
+### Problèmes USB
+- En cas d'échec du flash, maintenez **BOOT** et appuyez sur **RST** pour entrer en mode téléchargement.
