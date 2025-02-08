@@ -1,88 +1,97 @@
-# Firmware Titan pour T-Display-S3
+# Titan Firmware for T-Display-S3
 
 ![IMG_20250106_223322](https://github.com/user-attachments/assets/f9da2d12-33a8-4344-a816-5c0d78def7cf)
 
 ## Description
-Le **firmware Titan** est un projet conçu pour le **T-Display-S3**, basé sur le microcontrôleur **ESP32-S3** de **Lilygo**. Il offre une interface graphique fluide et un accès simplifié aux paramètres et informations système.
+The **Titan Firmware** is a project designed for the **T-Display-S3**, based on the **ESP32-S3** microcontroller by **Lilygo**. It provides a smooth graphical interface and easy access to settings and system information.
 
-## Fonctionnalités
-- **Menu Principal :** Navigation intuitive avec accès aux options "WiFi Attack", "BLE Attack", "Infos", "Paramètres" et "Batterie Info".
-- **Paramètres :** Personnalisation de l'interface (couleurs et luminosité de l'écran).
-- **Affichage d'Informations :** Détails sur le matériel, tels que le modèle de la puce, la taille de l'écran et la mémoire Flash.
-- **Gestion de la Batterie :** Affichage de la tension via l'ADC de l'ESP32 pour une surveillance en temps réel.
-- **Contrôle via boutons :** Utilisation des boutons A et B pour naviguer et modifier les paramètres.
-- **Écran de démarrage personnalisé** avec un logo de bienvenue.
+## Features
+- **Main Menu:** Intuitive navigation with access to "WiFi Attack", "BLE Attack", "Info", "Settings", "Battery Info", and "Turn Off".
+- **Settings:** Customize the interface (main color and screen brightness).
+- **Information Display:** Details about the hardware, such as chip model, screen size, and Flash memory.
+- **Battery Management:** Displays voltage via the ESP32's ADC for real-time monitoring.
+- **Button Control:** Use buttons A and B to navigate and adjust settings.
+- **Custom Startup Screen** with a welcome logo.
+- **Battery Percentage Display:** Visual indication of battery charge level.
+- **Turn Off Function:** Option to turn off the screen and enter deep sleep mode.
 
-## Matériel requis
-- **Carte :** T-Display-S3 (ESP32-S3)
-- **Ordinateur :** Windows, Linux ou macOS avec **Arduino IDE** ou **PlatformIO**.
+## Required Hardware
+- **Board:** T-Display-S3 (ESP32-S3)
+- **Computer:** Windows, Linux, or macOS with **Arduino IDE** or **PlatformIO**.
 
 ## Installation
 
-### Prérequis logiciels
-- **Arduino IDE** ou **PlatformIO**
-- **Bibliothèque TFT_eSPI** pour l'affichage TFT
+### Software Prerequisites
+- **Arduino IDE** or **PlatformIO**
+- **TFT_eSPI Library** for TFT display
 
-### Installation avec Arduino IDE
-1. Installez **TFT_eSPI** via le dossier `lib/TFT_eSPI` du projet.
-2. Ajoutez cette URL dans **Préférences** de l'IDE Arduino :  
+### Installation with Arduino IDE
+1. Install **TFT_eSPI** via the project's `lib/TFT_eSPI` folder.
+2. Add this URL in **Preferences** of the Arduino IDE:
    `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
-3. Sélectionnez **ESP32S3 Dev Module** dans **Outils** > **Carte**.
-4. Configurez les paramètres suivants :
-   - **Flash Size :** 16MB (128Mb)
-   - **Partition Scheme :** 16M Flash (3M APP/9.9MB FATFS)
-   - **PSRAM :** OPI PSRAM
-   - **Upload Speed :** 921600
-   - **Upload Mode :** UART0/Hardware CDC
-5. Connectez la carte via USB et cliquez sur **Upload**.
+3. Select **ESP32S3 Dev Module** in **Tools** > **Board**.
+4. Configure the following settings:
+   - **Flash Size:** 16MB (128Mb)
+   - **Partition Scheme:** 16M Flash (3M APP/9.9MB FATFS)
+   - **PSRAM:** OPI PSRAM
+   - **Upload Speed:** 921600
+   - **Upload Mode:** UART0/Hardware CDC
+5. Connect the board via USB and click **Upload**.
 
-## Fonctionnement du Firmware
+## Firmware Operation
 
-### Écran de démarrage
-Au démarrage, le firmware affiche un logo "Titan Firmware" pendant 5 secondes avant d'accéder au menu principal.
+### Startup Screen
+On startup, the firmware displays a "Titan Firmware" logo for 5 seconds before accessing the main menu.
 
-### Menu Principal
-Le menu propose :
+### Main Menu
+The menu offers:
 1. **WiFi Attack**
 2. **BLE Attack**
-3. **Infos** - Affichage des informations système
-4. **Paramètres** - Personnalisation de l'affichage
-5. **Batterie Info** - Surveillance de l'état de la batterie
+3. **Info** - Display system information
+4. **Settings** - Customize display settings
+5. **Battery Info** - Monitor battery status
+6. **Turn Off** - Turn off the screen and enter deep sleep mode
 
 ### Navigation
-- **Bouton A (GPIO0)** : Sélectionner une option.
-- **Bouton B (GPIO14)** : Naviguer dans le menu.
+- **Button A (GPIO0):** Select an option.
+- **Button B (GPIO14):** Navigate through the menu.
 
-### Paramètres
-Dans le menu "Paramètres" :
-- Changer la couleur principale (5 options disponibles).
-- Régler la luminosité (0 à 255 par paliers de 20).
+### Settings
+In the "Settings" menu:
+- Change the main color (5 options available).
+- Adjust brightness (0 to 255 in increments of 20).
 
-### Gestion de la Batterie
-- Lecture de la tension via **GPIO4**.
-- Affichage de la valeur en millivolts.
-- Message "No battery connected!" si aucune batterie n'est détectée.
+### Battery Management
+- Reads voltage via **GPIO4**.
+- Displays value in millivolts.
+- Displays "No battery connected!" if no battery is detected.
+- Displays battery charge percentage.
+
+### Turn Off Function
+- Turns off the screen and enters deep sleep mode.
+- Can be woken up via a configured button.
 
 ## Code
-Le code est structuré avec des fonctions principales pour la gestion de l'affichage et des menus :
+The code is structured with main functions for display and menu management:
 
-- **setup()** : Initialisation des périphériques et de l'écran.
-- **loop()** : Gestion des interactions utilisateur et mise à jour de l'affichage.
-- **Fonctions du menu :**
+- **setup():** Initialize peripherals and screen.
+- **loop():** Handle user interactions and update display.
+- **Menu Functions:**
   - `displayMenu()`
   - `enterCategory()`
-  - `nextCategory()`
   - `displaySettings()`
   - `displayBatteryInfo()`
+  - `displayBatteryPercentage()`
+  - `turnOffDisplay()`
   - `waitForButtonPress()`
 
-## Dépannage
+## Troubleshooting
 
-### L'écran ne s'allume pas
-- Vérifiez que **GPIO15** est bien configuré en sortie et mis à **HIGH** pour activer le rétroéclairage.
+### Screen Does Not Turn On
+- Ensure **GPIO15** is configured as an output and set to **HIGH** to enable backlight.
 
-### La luminosité ne change pas
-- Assurez-vous que la fonction `analogWrite()` est bien utilisée sur le pin du rétroéclairage.
+### Brightness Does Not Change
+- Ensure the `ledcWrite()` function is used on the LEDC channel configured for backlight.
 
-### Problèmes USB
-- En cas d'échec du flash, maintenez **BOOT** et appuyez sur **RST** pour entrer en mode téléchargement.
+### USB Issues
+- If flashing fails, hold **BOOT** and press **RST** to enter download mode.
