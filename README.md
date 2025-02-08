@@ -1,6 +1,7 @@
 # Titan Firmware for T-Display-S3
 
-![IMG_20250106_223322](https://github.com/user-attachments/assets/f9da2d12-33a8-4344-a816-5c0d78def7cf)
+![IMG_20250208_151310](https://github.com/user-attachments/assets/ce8cb149-f686-414a-9745-d9cae61c9791)
+
 
 ## Description
 The **Titan Firmware** is a project designed for the **T-Display-S3**, based on the **ESP32-S3** microcontroller by **Lilygo**. It provides a smooth graphical interface and easy access to settings and system information.
