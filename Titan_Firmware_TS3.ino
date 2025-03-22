@@ -14,7 +14,7 @@
 #define BUTTON_B      14
 #define PIN_BAT_VOLT  4
 
-const char* firmware_version = "1.1.3";
+const char* firmware_version = "1.1.4";
 
 // Main menu with new "Games" category added
 const char* menu_items[] = {"Wifi Attack", "BLE Attack", "Games", "Settings", "Info", "Battery Info", "Turn Off"};
