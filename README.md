@@ -1,4 +1,4 @@
-# Titan Firmware for T-Display-S3
+# TitanOs Firmware for T-Display-S3
 
 ![IMG_0081](https://github.com/user-attachments/assets/48c1a630-4036-4e47-841f-b060a08f3809)
 
