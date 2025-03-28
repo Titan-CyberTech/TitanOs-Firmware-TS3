@@ -1,9 +1,9 @@
 # Titan Firmware for T-Display-S3
+
 ![IMG_0081](https://github.com/user-attachments/assets/48c1a630-4036-4e47-841f-b060a08f3809)
 
-
 ## Description
-The **Titan Firmware** is a project designed for the **T-Display-S3**, based on the **ESP32-S3** microcontroller by **Lilygo**. It provides a smooth graphical interface and easy access to settings and system information. This updated version includes new features such as an Evil Portal attack mode, a Snake game, and improved user interaction.
+The **Titan Firmware** is a comprehensive project tailored for the **T-Display-S3**, powered by the **ESP32-S3** microcontroller from **Lilygo**. It offers a sleek graphical interface and intuitive access to settings and system information. This updated version introduces enhanced features such as an Evil Portal attack mode, a Snake game, and improved user interaction.
 
 ## Features
 - **Main Menu:** Intuitive navigation with access to "WiFi Attack", "BLE Attack", "Games", "Info", "Settings", "Battery Info", and "Turn Off".
@@ -31,7 +31,7 @@ The **Titan Firmware** is a project designed for the **T-Display-S3**, based on 
 - **TFT_eSPI Library** for TFT display
 
 ### Installation with Arduino IDE
-1. Install **TFT_eSPI** via the project's lib/TFT_eSPI folder.
+1. Install **TFT_eSPI** via the project's `lib/TFT_eSPI` folder.
 2. Add this URL in **Preferences** of the Arduino IDE:
    `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
 3. Select **ESP32S3 Dev Module** in **Tools** > **Board**.
@@ -46,7 +46,7 @@ The **Titan Firmware** is a project designed for the **T-Display-S3**, based on 
 ## Firmware Operation
 
 ### Startup Screen
-On startup, the firmware displays a "Titan Os" logo for 5 seconds before accessing the main menu.
+On startup, the firmware displays a "Titan OS" logo for 5 seconds before accessing the main menu.
 
 ### Main Menu
 The menu offers:
