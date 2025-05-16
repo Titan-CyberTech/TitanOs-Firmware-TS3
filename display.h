@@ -6,6 +6,6 @@
 void showSplashScreen();
 void displayMenu();
 void displayBatteryPercentage();
-void setupBatteryADC(); // Ajout de la fonction pour initialiser l'ADC
+void setupBatteryADC();
 
 #endif // DISPLAY_H

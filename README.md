@@ -1,115 +1,112 @@
-# TitanOs Firmware for T-Display-S3
+# Titan Firmware TS3 for T-Display-S3
 
 ![IMG_0081](https://github.com/user-attachments/assets/48c1a630-4036-4e47-841f-b060a08f3809)
 
 ## Description
-The **Titan Firmware** is a comprehensive project tailored for the **T-Display-S3**, powered by the **ESP32-S3** microcontroller from **Lilygo**. It offers a sleek graphical interface and intuitive access to settings and system information. This updated version introduces enhanced features such as an Evil Portal attack mode, a Snake game, and improved user interaction.
+
+**Titan Firmware** is a complete firmware for the **T-Display-S3** board (ESP32-S3 Lilygo).  
+It offers a modern graphical interface, WiFi/BLE attacks, a Snake game, battery management, advanced settings, and a captive portal (Evil Portal).
 
 ## Features
-- **Main Menu:** Intuitive navigation with access to "WiFi Attack", "BLE Attack", "Games", "Info", "Settings", "Battery Info", and "Turn Off".
-- **WiFi Attack Modes:**
-  - **Deauth Attack:** Continuously sends deauthentication packets to disrupt WiFi networks.
-  - **Evil Portal:** Sets up a fake access point to capture credentials from unsuspecting users.
-- **Snake Game:** A simple Snake game for entertainment, controlled using buttons A and B.
-- **Settings:** Customize the interface (main color and screen brightness).
-- **Information Display:** Details about the hardware, such as chip model, screen size, and Flash memory.
-- **Battery Management:** Displays voltage via the ESP32's ADC for real-time monitoring.
-- **Button Control:** Use buttons A and B to navigate and adjust settings.
-- **Custom Startup Screen** with a welcome logo.
-- **Battery Percentage Display:** Visual indication of battery charge level.
-- **Turn Off Function:** Option to turn off the screen and enter deep sleep mode.
-- **Inactivity Screen Off:** Automatically turns off the screen after a period of inactivity.
+
+- **Graphical menu**: intuitive navigation with A/B buttons
+- **WiFi attacks**:
+  - **Deauth Attack**: disconnect WiFi clients
+  - **Evil Portal**: fake access point to capture credentials
+- **BLE Attack** (placeholder)
+- **Built-in Snake game**
+- **Settings**: main color and screen brightness
+- **Battery display**: voltage, percentage, battery detection
+- **System info**: version, hardware, etc.
+- **Custom splash screen**
+- **Auto sleep** after 15s of inactivity
+- **Full shutdown** (deep sleep) via menu
 
 ## Required Hardware
-- **Board:** T-Display-S3 (ESP32-S3)
-- **Computer:** Windows, Linux, or macOS with **Arduino IDE** or **PlatformIO**.
+
+- **Board**: Lilygo T-Display-S3 (ESP32-S3, 16MB Flash, 8MB PSRAM recommended)
+- **Computer**: Windows, Linux, or macOS with **Arduino IDE** or **PlatformIO**
 
 ## Installation
 
 ### Software Prerequisites
-- **Arduino IDE** or **PlatformIO**
-- **TFT_eSPI Library** for TFT display
 
-### Installation with Arduino IDE
-1. Install **TFT_eSPI** via the project's `lib/TFT_eSPI` folder.
-2. Add this URL in **Preferences** of the Arduino IDE:
+- **Arduino IDE** or **PlatformIO**
+- **TFT_eSPI** (TFT display library)
+- **WebServer** and **DNSServer** (ESP32 libraries)
+- (Optional) **SD** for storage
+
+### Steps (Arduino IDE)
+
+1. Install **TFT_eSPI** via the library manager.
+2. Add the ESP32 URL in Preferences:  
    `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
-3. Select **ESP32S3 Dev Module** in **Tools** > **Board**.
-4. Configure the following settings:
-   - **Flash Size:** 16MB (128Mb)
-   - **Partition Scheme:** 16M Flash (3M APP/9.9MB FATFS)
-   - **PSRAM:** OPI PSRAM
-   - **Upload Speed:** 921600
-   - **Upload Mode:** UART0/Hardware CDC
+3. Select **ESP32S3 Dev Module** in Tools > Board.
+4. Configure:
+   - **Flash Size**: 16MB (128Mb)
+   - **Partition Scheme**: 16M Flash (3M APP/9.9MB FATFS)
+   - **PSRAM**: OPI PSRAM
+   - **Upload Speed**: 921600
+   - **Upload Mode**: UART0/Hardware CDC
 5. Connect the board via USB and click **Upload**.
 
-## Firmware Operation
-
-### Startup Screen
-On startup, the firmware displays a "Titan OS" logo for 5 seconds before accessing the main menu.
-
-### Main Menu
-The menu offers:
-
-1. **WiFi Attack**
-   - **Deauth Attack:** Disrupt WiFi networks by sending deauthentication packets.
-   - **Evil Portal:** Capture credentials by setting up a fake access point.
-2. **BLE Attack**
-3. **Games**
-   - **Snake Game:** Play a simple Snake game using buttons A and B.
-4. **Info** - Display system information
-5. **Settings** - Customize display settings
-6. **Battery Info** - Monitor battery status
-7. **Turn Off** - Turn off the screen and enter deep sleep mode
+## Usage
 
 ### Navigation
-- **Button A (GPIO0):** Select an option.
-- **Button B (GPIO14):** Navigate through the menu.
+
+- **Button A (GPIO0)**: Select/Validate
+- **Button B (GPIO14)**: Navigate/Change option
+
+### Menus
+
+- **WiFi Attack**: Deauth or Evil Portal
+- **BLE Attack**: (placeholder)
+- **Games**: Snake (control with A/B)
+- **Info**: System information
+- **Settings**: Main color and brightness
+- **Battery Info**: Battery voltage and percentage
+- **Turn Off**: Screen off and deep sleep
 
 ### Settings
-In the "Settings" menu:
-- Change the main color (5 options available).
-- Adjust brightness (0 to 255 in increments of 20).
 
-### Battery Management
-- Reads voltage via **GPIO4**.
-- Displays value in millivolts.
-- Displays "No battery connected!" if no battery is detected.
-- Displays battery charge percentage.
+- **Main color**: 5 choices
+- **Brightness**: 0 to 255 in steps of 20
 
-### Turn Off Function
-- Turns off the screen and enters deep sleep mode.
-- Can be woken up via a configured button.
+### Battery management
 
-### Inactivity Screen Off
-- Automatically turns off the screen after 15 seconds of inactivity.
-- Press any button to wake up the screen.
+- Read via **GPIO4**
+- Display voltage (mV) and percentage
+- "No battery connected!" message if absent
 
-## Code
-The code is structured with main functions for display and menu management:
+### Sleep & shutdown
 
-- **setup():** Initialize peripherals and screen.
-- **loop():** Handle user interactions and update display.
-- **Menu Functions:**
-  - `displayMenu()`
-  - `enterCategory()`
-  - `displaySettings()`
-  - `displayBatteryInfo()`
-  - `displayBatteryPercentage()`
-  - `turnOffDisplay()`
-  - `waitForButtonPress()`
-  - `displayWifiAttackSubMenu()`
-  - `displayWifiDeauthAttack()`
-  - `displayWifiEvilPortal()`
-  - `displaySnakeGame()`
+- **Auto sleep** after 15s of inactivity (black screen, wake up with button)
+- **Full shutdown** via menu (deep sleep, wake up with button)
+
+## Code Structure
+
+```
+Titan_Firmware_TS3/
+├── Titan_Firmware_TS3.ino      # Main file (setup, loop)
+├── config.h / config.cpp       # Global declarations and initializations (pins, colors, objects)
+├── display.h / display.cpp     # Display functions (menus, splash, battery)
+├── menu.h / menu.cpp           # Main menu and navigation
+├── attacks.h / attacks.cpp     # WiFi/BLE attacks and captive portal
+├── utils.h / utils.cpp         # Utilities (buttons, battery, helpers)
+├── games.h / games.cpp         # Snake game
+```
 
 ## Troubleshooting
 
-### Screen Does Not Turn On
-- Ensure **GPIO15** is configured as an output and set to **HIGH** to enable backlight.
+- **Screen does not turn on**: Check GPIO15 (backlight) is set as output and HIGH.
+- **Brightness does not change**: Check `ledcWrite()` is used on the correct channel.
+- **USB flashing issues**: Hold **BOOT** and press **RST** to enter download mode.
 
-### Brightness Does Not Change
-- Ensure the `ledcWrite()` function is used on the LEDC channel configured for backlight.
+## Security & Legal Notice
 
-### USB Issues
-- If flashing fails, hold **BOOT** and press **RST** to enter download mode.
+> ⚠️ **Warning: WiFi/BLE attacks are for educational use only. Never use these features on networks you do not own or without explicit permission.**
+
+---
+
+**Author:** Titan.cybertech  
+**License:** MIT

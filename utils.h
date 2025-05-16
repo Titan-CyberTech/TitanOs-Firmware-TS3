@@ -18,4 +18,7 @@ void displaySettings();
 void displaySettingsScreen(const char* colors[], int color_index);
 void turnOffDisplay();
 
+uint32_t readBatteryVoltage();
+bool isBatteryConnected(uint32_t voltage);
+
 #endif // UTILS_H

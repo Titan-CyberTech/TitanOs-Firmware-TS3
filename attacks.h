@@ -3,7 +3,7 @@
 
 #include "config.h"
 
-// Déclaration avec une taille fixe
+// Définition avec une taille fixe
 extern const uint8_t deauthFrame[26];
 extern const char* evilPortalHtml;
 

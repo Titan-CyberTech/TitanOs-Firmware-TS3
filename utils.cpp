@@ -1,6 +1,6 @@
 #include "utils.h"
 #include "display.h"
-#include "attacks.h"  // Inclure ce fichier pour accéder à deauthFrame
+#include "attacks.h"
 
 void waitForButtonPress(int pin) {
   while (digitalRead(pin) == HIGH) {
@@ -40,7 +40,6 @@ void continuousDeauthAttackToAll(int channel) {
 
   uint32_t packetCount = 0;
   uint32_t lastUpdate = millis();
-  char buf[20];
 
   while (!isButtonPressed(BUTTON_A, buttonA_pressed)) {
     esp_wifi_80211_tx(WIFI_IF_STA, deauthFrame, sizeof(deauthFrame), false);
@@ -98,21 +97,17 @@ void displayInfo() {
 }
 
 void displayBatteryInfo() {
-  esp_adc_cal_characteristics_t adc_chars;
-  esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, 1100, &adc_chars);
-
   tft.fillScreen(COLOR_BLACK);
   tft.setTextColor(main_color, COLOR_BLACK);
   tft.setTextSize(2);
   tft.setTextDatum(MC_DATUM);
   tft.drawString("Battery Info", tft.width()/2, 20);
 
-  uint32_t raw = analogRead(PIN_BAT_VOLT);
-  uint32_t voltage = esp_adc_cal_raw_to_voltage(raw, &adc_chars) * 2;
+  uint32_t voltage = readBatteryVoltage();
 
   tft.setTextSize(1);
   tft.setTextDatum(TL_DATUM);
-  if (voltage > 4300)
+  if (!isBatteryConnected(voltage))
     tft.drawString("No battery connected!", 10, 50);
   else
     tft.drawString("Voltage: " + String(voltage) + " mV", 10, 50);
@@ -179,4 +174,15 @@ void turnOffDisplay() {
   tft.writecommand(0x10);
   esp_sleep_enable_ext0_wakeup((gpio_num_t)PIN_BUTTON_2, 0);
   esp_deep_sleep_start();
+}
+
+// Batterie (exemple simple, à adapter selon ton schéma)
+uint32_t readBatteryVoltage() {
+  uint32_t raw = analogRead(PIN_BAT_VOLT);
+  // Conversion à ajuster selon ton montage
+  return raw * 2; // Ex : pont diviseur par 2
+}
+
+bool isBatteryConnected(uint32_t voltage) {
+  return voltage > 1000 && voltage < 5000;
 }
