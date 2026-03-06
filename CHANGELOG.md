@@ -4,43 +4,74 @@ All notable changes to TitanOs-Firmware-TS3 are documented here.
 
 ---
 
+## [2.0.1] — 2026
+
+### Added
+- **Beacon Flood attack** — broadcasts hundreds of fake WiFi networks across all 13 channels simultaneously, visible on every nearby device. SSIDs generated from 15 realistic prefixes with random suffixes. MACs fully randomized. Channel hops every 10 frames to cover the full 2.4GHz spectrum.
+- **Signal strength bars** in the Deauth network list — 4-bar indicator (replaces raw dBm text), much easier to read at a glance
+- **Network counter** displayed below the Deauth network list ("X networks found")
+- **Packet progress bar** in Deauth attack screen — visual fill bar alongside the packet counter
+
+### Changed
+- WiFi submenu now has **3 options** : Deauth Attack · Beacon Flood · Evil Portal
+- SSID truncation in network list reduced to 16 chars (was 18) to make room for signal bars
+- `SSID_PREFIXES` stored in `PROGMEM` to save RAM
+- `F()` macro used on static strings in Evil Portal handler
+- Version bumped to **2.0.1**
+
+### Notes
+- Beacon Flood is for **educational use only** — broadcasting fake networks is illegal on networks/spectrum you don't own
+- BLE Flood still in development, coming in v2.1
+
+---
+
 ## [2.0.0] — 2026
 
 ### Added
-- **Double-buffered rendering** via `TFT_eSprite` — zero flicker on all screens
-- **Persistent settings** via ESP32 NVS (`Preferences`) — theme and brightness survive reboot
-- **5 color themes** : Violet, Cyan, Orange, Green, Red
-- **Topbar / Botbar** UI chrome on every screen with contextual button hints
-- **Battery icon** in topbar — color-coded (green / yellow / red) with % inside the icon
-- **Animated splash screen** with loading bar
-- **System Info screen** — responsive 2×4 card grid layout
-- **Battery screen** — large gauge + voltage in mV
-- **Deauth attack** — paginated network list with RSSI & channel, live packet counter, pulsing animation
-- **Evil Portal** — real-time credential display, blink indicator, capture counter
-- **Snake** — visible grid, in-topbar score, progressive speed, 3-2-1 countdown, flashing game-over
-- **Auto screen-off** after 20 seconds of inactivity (wake on any button)
-- **Fade-out animation** before deep sleep (Power Off)
-- `CHANGELOG.md` and `.gitignore` added to repository
-
-### Changed
-- Backlight pin corrected to **GPIO38** (was GPIO15 in v1)
-- Battery ADC uses `esp_adc_cal` with 8-sample averaging for accuracy
-- Settings screen: short A = switch section, long A = save & quit, B = change value
-- `utils_waitBtn()` now fully purges button states on exit — fixes re-trigger crash
-- Code split into focused modules: `ui`, `utils`, `screens`, `menu`, `attacks`, `games`
-- All header guards replaced with `#pragma once`
+- Double-buffered rendering via TFT_eSprite — zero flicker
+- Persistent settings via ESP32 NVS (theme + brightness survive reboot)
+- 5 color themes : Violet, Cyan, Orange, Green, Red
+- Topbar / Botbar UI on every screen with contextual button hints
+- Battery icon in topbar — color-coded with % inside
+- Animated splash screen with loading bar
+- System Info — responsive 2×4 card grid layout
+- Snake — score, progressive speed, countdown, flashing game-over
+- Evil Portal — real-time credential display, capture counter
 
 ### Fixed
-- **Battery screen crash** — button state not cleared after `waitBtn()` caused immediate re-entry → stack overflow
-- **Brightness not changing** — debounce delay too long (200ms) was swallowing button presses; reduced to 150ms with direct GPIO read
-
-### Removed
-- Monolithic single-file structure from v1
-- `display.cpp/h` merged into `ui.cpp/h` and `screens.cpp/h`
+- Battery screen crash — button state not cleared caused stack overflow on return
+- Brightness not changing — 200ms debounce was swallowing button presses
+- Backlight pin corrected to GPIO38 (was GPIO15 in v1)
 
 ---
 
 ## [1.1.6] — 2025
 
-- Initial public release
+- Last stable v1 release
 - Basic menu, WiFi Deauth, Evil Portal, Snake, battery display, settings
+
+## [1.1.5] — 2025
+
+- Improved WiFi scan reliability
+- Fixed brightness step overflow bug
+- Added deep sleep wake on button B
+
+## [1.1.4] — 2025
+
+- Initial Evil Portal implementation
+
+## [1.1.3] — 2025
+
+- Snake game added
+
+## [1.1.2] — 2025
+
+- WiFi Deauth attack added
+
+## [1.1.1] — 2025
+
+- Battery voltage display
+
+## [1.1.0] — 2025
+
+- First public release

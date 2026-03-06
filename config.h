@@ -15,7 +15,7 @@
 #include <Preferences.h>
 
 // ─── Firmware ───────────────────────────────────────────────
-#define FIRMWARE_VERSION   "2.0.0"
+#define FIRMWARE_VERSION   "2.0.1"
 #define FIRMWARE_NAME      "Titan OS"
 
 // ─── Pins T-Display-S3 ──────────────────────────────────────

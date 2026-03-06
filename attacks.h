@@ -5,8 +5,11 @@
 void attacks_wifiSubMenu();
 
 // ─── Deauth ─────────────────────────────────────────────────
-void attacks_deauthScan();           // scan + sélection + attaque
-int  attacks_selectNetwork(int n);   // UI sélection réseau
+void attacks_deauthScan();
+int  attacks_selectNetwork(int n);
+
+// ─── Beacon Flood ───────────────────────────────────────────
+void attacks_beaconFlood();
 
 // ─── Evil Portal ────────────────────────────────────────────
 void attacks_evilPortal();
