@@ -4,7 +4,7 @@
 
 **A modern open-source firmware for the Lilygo T-Display-S3**
 
-![Version](https://img.shields.io/badge/version-2.0.0-blueviolet?style=flat-square)
+![Version](https://img.shields.io/badge/version-2.0.1-blueviolet?style=flat-square)
 ![Board](https://img.shields.io/badge/board-T--Display--S3-blue?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Platform](https://img.shields.io/badge/platform-ESP32--S3-orange?style=flat-square)
